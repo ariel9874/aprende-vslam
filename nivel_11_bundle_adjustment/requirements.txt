@@ -1,0 +1,3 @@
+# Nivel 11: solo numpy (y matplotlib para las graficas). Sin dataset.
+numpy
+matplotlib
