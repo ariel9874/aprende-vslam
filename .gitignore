@@ -1,0 +1,6 @@
+# Datos y resultados de cada nivel: se regeneran con descarga_datos.py /
+# genera_datos.py y los scripts del nivel. Nunca se versionan.
+*/data/
+*/salida/
+*.tgz
+__pycache__/
