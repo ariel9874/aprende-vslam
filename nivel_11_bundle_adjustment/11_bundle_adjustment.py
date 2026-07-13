@@ -117,6 +117,7 @@ def escala_residual(x1: dict, gt_pts: dict) -> float:
 
 def exp1_converge(salida: Path) -> tuple[float, float, float]:
     """El BA converge: baja la reproyeccion Y se acerca a la verdad."""
+    salida.mkdir(exist_ok=True)     # el examen puede llamarnos sin main()
     rng = np.random.default_rng(1)
     gt_poses, gt_pts, obs = escena()
     obs_r = [(k, p, uv + rng.normal(0, 0.5, 2)) for k, p, uv in obs]  # 0.5 px

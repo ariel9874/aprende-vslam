@@ -124,6 +124,7 @@ def exp1_lie() -> tuple[float, float]:
 
 def exp2_cierre_de_bucle(salida: Path) -> tuple[float, float]:
     """El cierre de bucle deshace la deriva acumulada."""
+    salida.mkdir(exist_ok=True)     # el examen puede llamarnos sin main()
     rng = np.random.default_rng(3)
     n = 30
     gt = poses_circulo(n)
