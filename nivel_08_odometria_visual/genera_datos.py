@@ -1,0 +1,222 @@
+#!/usr/bin/env python3
+"""Genera la secuencia sintética del nivel, con ground truth EXACTO.
+
+Escena: tres planos frontales texturizados con ruido multi-escala, a
+profundidades distintas (composición lejano→cercano para ocluir bien). Cada
+plano se renderiza con la homografía EXACTA inducida por la pose de la
+cámara: la geometría es perfecta y el ground truth también. Tres
+profundidades = escena no plana = matriz esencial bien condicionada; textura
+de ruido = miles de esquinas ORB discriminativas.
+
+Es una adaptación autocontenida del generador del repo padre
+(scripts/make_synthetic_sequence.py, modo forward).
+
+Salida (en data/secuencia/):
+    images/000000.png ...   la secuencia (80 frames, 640x480)
+    calib.txt               fx fy cx cy width height
+    groundtruth.txt         poses reales en formato TUM
+
+Uso:
+    python genera_datos.py
+"""
+
+from __future__ import annotations
+
+import argparse
+from dataclasses import dataclass
+from pathlib import Path
+
+import cv2
+import numpy as np
+
+AQUI = Path(__file__).resolve().parent
+
+
+# ────────────────────────── mini-toolbox de poses ────────────────────────────
+
+def rot_y(theta: float) -> np.ndarray:
+    """Rotación alrededor del eje Y (guiñada, con ejes de cámara estilo OpenCV)."""
+    c, s = np.cos(theta), np.sin(theta)
+    return np.array([[c, 0, s], [0, 1, 0], [-s, 0, c]])
+
+
+def rotation_to_quaternion(R: np.ndarray) -> np.ndarray:
+    """Matriz de rotación 3x3 -> cuaternión (qx, qy, qz, qw), método de Shepperd.
+
+    ─── La matemática ───
+    Un cuaternión unitario q = (v·sin(θ/2), cos(θ/2)) codifica la rotación de
+    ángulo θ alrededor del eje unitario v (q y −q son la MISMA rotación). El
+    formato TUM lo usa porque son 4 números con una sola restricción (‖q‖=1)
+    y se interpola bien. Shepperd calcula primero la componente de mayor
+    magnitud (según la diagonal dominante) para no dividir nunca por un
+    número pequeño — estable incluso cerca de θ = 0 y θ = π.
+    """
+    R = np.asarray(R, dtype=np.float64)
+    trace = np.trace(R)
+    if trace > 0.0:
+        s = np.sqrt(trace + 1.0) * 2.0
+        qw, qx = 0.25 * s, (R[2, 1] - R[1, 2]) / s
+        qy, qz = (R[0, 2] - R[2, 0]) / s, (R[1, 0] - R[0, 1]) / s
+    elif R[0, 0] > R[1, 1] and R[0, 0] > R[2, 2]:
+        s = np.sqrt(1.0 + R[0, 0] - R[1, 1] - R[2, 2]) * 2.0
+        qw, qx = (R[2, 1] - R[1, 2]) / s, 0.25 * s
+        qy, qz = (R[0, 1] + R[1, 0]) / s, (R[0, 2] + R[2, 0]) / s
+    elif R[1, 1] > R[2, 2]:
+        s = np.sqrt(1.0 + R[1, 1] - R[0, 0] - R[2, 2]) * 2.0
+        qw, qx = (R[0, 2] - R[2, 0]) / s, (R[0, 1] + R[1, 0]) / s
+        qy, qz = 0.25 * s, (R[1, 2] + R[2, 1]) / s
+    else:
+        s = np.sqrt(1.0 + R[2, 2] - R[0, 0] - R[1, 1]) * 2.0
+        qw, qx = (R[1, 0] - R[0, 1]) / s, (R[0, 2] + R[2, 0]) / s
+        qy, qz = (R[1, 2] + R[2, 1]) / s, 0.25 * s
+    return np.array([qx, qy, qz, qw])
+
+
+def guardar_tum(items: list[tuple[float, np.ndarray]], path: Path) -> None:
+    """Escribe una lista de (timestamp, T_w_c) en formato TUM."""
+    lines = []
+    for t, T in items:
+        q = rotation_to_quaternion(T[:3, :3])
+        tx, ty, tz = T[:3, 3]
+        lines.append(f"{t:.6f} {tx:.6f} {ty:.6f} {tz:.6f} "
+                     f"{q[0]:.6f} {q[1]:.6f} {q[2]:.6f} {q[3]:.6f}")
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+# ───────────────────────────── la escena ─────────────────────────────────────
+
+def make_texture(width: int, height: int, rng: np.random.Generator) -> np.ndarray:
+    """Textura de ruido multi-escala (suma de octavas): rica en esquinas a
+    varias frecuencias espaciales, ideal para detectores tipo FAST/ORB."""
+    tex = np.zeros((height, width), dtype=np.float64)
+    for cell, weight in [(160, 1.0), (60, 0.8), (24, 0.6), (8, 0.4)]:
+        octave = rng.uniform(0, 1, (height // cell + 2, width // cell + 2))
+        tex += weight * cv2.resize(octave, (width, height), interpolation=cv2.INTER_CUBIC)
+    tex = (tex - tex.min()) / (tex.max() - tex.min())
+    return (30 + tex * 195).astype(np.uint8)  # rango [30, 225]
+
+
+@dataclass
+class TexturedPlane:
+    """Plano frontal (paralelo al plano imagen inicial) en z = depth."""
+    center_x: float
+    center_y: float
+    depth: float
+    half_x: float
+    half_y: float
+    texture: np.ndarray
+
+    def world_corners(self) -> np.ndarray:
+        cx, cy, z, hx, hy = (self.center_x, self.center_y, self.depth,
+                             self.half_x, self.half_y)
+        # Orden: izq-arriba, der-arriba, der-abajo, izq-abajo (debe coincidir
+        # con el orden de las esquinas de la textura en render_plane).
+        return np.array([
+            [cx - hx, cy - hy, z],
+            [cx + hx, cy - hy, z],
+            [cx + hx, cy + hy, z],
+            [cx - hx, cy + hy, z],
+        ])
+
+
+def render_plane(canvas: np.ndarray, plane: TexturedPlane, K: np.ndarray,
+                 R_w_c: np.ndarray, C: np.ndarray) -> None:
+    """Renderiza el plano sobre el canvas con la homografía exacta textura→imagen.
+
+    ─── La matemática: homografía inducida por un plano ───
+    Para puntos que viven en un plano nᵀ·X = d, dos vistas pinhole se
+    relacionan por una HOMOGRAFÍA exacta (proyectividad 2D, 8 gdl):
+
+        x̂_2 ~ H·x̂_1   con   H = R + (t·nᵀ)/d     (en píxeles: K·H·K⁻¹)
+
+    Aquí no la construimos analíticamente: proyectamos las 4 esquinas del
+    quad y getPerspectiveTransform resuelve la única H que las casa
+    (4 puntos × 2 coordenadas = 8 ecuaciones = 8 gdl) — mismo resultado,
+    cero álgebra frágil de signos y normales.
+
+    Nota didáctica: si TODA la escena fuera un único plano, la estimación de
+    la matriz esencial sería ambigua; por eso el generador usa TRES planos a
+    profundidades distintas (estructura 3D genuina, con paralaje real).
+    """
+    # Esquinas del plano en el frame de la cámara: X_c = R_w_c^T (X_w - C).
+    corners_cam = (R_w_c.T @ (plane.world_corners() - C).T).T
+    if np.any(corners_cam[:, 2] < 0.2):  # plano (parcialmente) detrás de la cámara
+        return
+    # Proyección pinhole: u = fx·X/Z + cx,  v = fy·Y/Z + cy  (nivel 02).
+    Z = corners_cam[:, 2]
+    img_pts = np.stack([
+        K[0, 0] * corners_cam[:, 0] / Z + K[0, 2],
+        K[1, 1] * corners_cam[:, 1] / Z + K[1, 2],
+    ], axis=1).astype(np.float32)
+
+    th, tw = plane.texture.shape
+    tex_pts = np.array([[0, 0], [tw, 0], [tw, th], [0, th]], dtype=np.float32)
+
+    H_mat = cv2.getPerspectiveTransform(tex_pts, img_pts)
+    size = (canvas.shape[1], canvas.shape[0])
+    warped = cv2.warpPerspective(plane.texture, H_mat, size, flags=cv2.INTER_LINEAR)
+    mask = cv2.warpPerspective(
+        np.full((th, tw), 255, np.uint8), H_mat, size, flags=cv2.INTER_NEAREST
+    )
+    canvas[mask > 127] = warped[mask > 127]
+
+
+# ─────────────────────────────── programa ────────────────────────────────────
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    parser.add_argument("--output", default=str(AQUI / "data" / "secuencia"))
+    parser.add_argument("--frames", type=int, default=80)
+    parser.add_argument("--seed", type=int, default=7)
+    args = parser.parse_args()
+
+    rng = np.random.default_rng(args.seed)
+    W, H = 640, 480
+    fx = fy = 450.0
+    cx, cy = W / 2, H / 2
+    K = np.array([[fx, 0, cx], [0, fy, cy], [0, 0, 1]])
+
+    # Tres planos a profundidades distintas (escena NO plana). El fondo es
+    # enorme para cubrir el recorrido; los cercanos dan paralaje fuerte.
+    planes = [  # de lejano a cercano (el orden resuelve la oclusión)
+        TexturedPlane(6.0, 0.0, 14.0, 18.0, 9.0, make_texture(2200, 1100, rng)),
+        TexturedPlane(1.5, 1.2, 8.0, 4.0, 2.6, make_texture(900, 600, rng)),
+        TexturedPlane(4.5, -1.0, 5.5, 2.2, 1.5, make_texture(640, 440, rng)),
+    ]
+
+    out = Path(args.output)
+    img_dir = out / "images"
+    img_dir.mkdir(parents=True, exist_ok=True)
+
+    gt: list[tuple[float, np.ndarray]] = []
+    step = 0.05  # velocidad ~constante => la VO monocular (||t||=1) conserva la forma
+
+    for k in range(args.frames):
+        # Pose real: avanza en +X con leve deriva en Z y guiñada suave.
+        yaw = 0.003 * k
+        C = np.array([step * k, 0.0, 0.012 * k])
+        R_w_c = rot_y(yaw)
+        T_w_c = np.eye(4)
+        T_w_c[:3, :3] = R_w_c
+        T_w_c[:3, 3] = C
+        gt.append((k / 30.0, T_w_c))
+
+        canvas = np.full((H, W), 15, np.uint8)  # "cielo" casi negro y sin textura
+        for plane in planes:
+            render_plane(canvas, plane, K, R_w_c, C)
+
+        cv2.imwrite(str(img_dir / f"{k:06d}.png"), canvas)
+
+    (out / "calib.txt").write_text(
+        f"# fx fy cx cy width height\n{fx} {fy} {cx} {cy} {W} {H}\n",
+        encoding="utf-8",
+    )
+    guardar_tum(gt, out / "groundtruth.txt")
+    print(f"OK: {args.frames} frames en {img_dir}")
+    print(f"    calibracion: {out / 'calib.txt'}")
+    print(f"    ground truth (TUM): {out / 'groundtruth.txt'}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

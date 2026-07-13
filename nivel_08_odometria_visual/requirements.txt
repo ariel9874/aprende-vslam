@@ -1,0 +1,5 @@
+# Nivel 08. Versiones abiertas a proposito; si algo se rompe en el futuro,
+# fija: numpy<2, opencv-python<5.
+numpy
+opencv-python
+matplotlib
