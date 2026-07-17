@@ -7,12 +7,12 @@ Cada nivel es una carpeta **independiente y autoejecutable**, y termina con un
 examen (`verificacion.py`) que compara tu resultado contra un número esperado.
 Si el examen pasa, dominas el nivel.
 
-> **Estado**: EN CONSTRUCCIÓN. La ruta **00 → 14 está completa y verificada**
-> (15 niveles). Al terminar el nivel 13 tienes un SLAM funcional sobre un
-> corredor sintético; el nivel 14 lo cruza a DATOS REALES: TUM fr2_xyz entera
-> (3669 frames) sin perderse, **1.4 cm** de ATE final. Los niveles 15-20
-> (RGB-D, estéreo, features aprendidas, tiempo real, mapa denso 3DGS, ROS 2)
-> están en camino.
+> **Estado**: EN CONSTRUCCIÓN. La ruta **00 → 15 está completa y verificada**
+> (16 niveles). Al terminar el nivel 13 tienes un SLAM funcional sobre un
+> corredor sintético; el 14 lo cruza a DATOS REALES (TUM fr2_xyz entera:
+> **1.4 cm**, 0 perdidos) y el 15 lo pone en METROS con un sensor RGB-D
+> (fr1_desk: **2.3 cm métrico, escala 1.012**). Los niveles 16-20 (estéreo,
+> features aprendidas, tiempo real, mapa denso 3DGS, ROS 2) están en camino.
 
 ## Empezar
 
@@ -80,11 +80,12 @@ GPU NVIDIA sólo en 17 y 19; Docker sólo en 19 y 20.
 | 12 | [grafo de poses y cierre de bucle](nivel_12_grafo_de_poses_y_cierre_de_bucle/) | Strasdat: SE(3) **empeora**, Sim(3) arregla |
 | 13 | [SLAM completo](nivel_13_slam_completo/) | **5.8 cm**; sin bundle adjustment, 148 cm (colapso) |
 | 14 | [datos reales (TUM)](nivel_14_datos_reales_tum/) | fr2_xyz entera: **1.4 cm**, 0 perdidos; el mapa-espejismo, evitado |
+| 15 | [RGB-D y escala métrica](nivel_15_rgbd_escala_metrica/) | fr1_desk: **2.3 cm MÉTRICO**, escala 1.012 — la secuencia que derrotó al 14 |
 
 ### Bloque D — Electivas (en camino)
 
-15 RGB-D y escala métrica · 16 estéreo (EuRoC) · 17 features aprendidas ·
-18 ingeniería de tiempo real · 19 mapa denso 3DGS · 20 ROS 2
+16 estéreo (EuRoC) · 17 features aprendidas · 18 ingeniería de tiempo real ·
+19 mapa denso 3DGS · 20 ROS 2
 
 ## De dónde sale este curso
 
@@ -101,15 +102,16 @@ historia de lo que costó descubrirlo.
 ## Para quien mantiene el curso
 
 ```bash
-python verifica_todos.py                      # el examen de TODOS los niveles
-python verifica_todos.py --root <ruta_TUM>    # reutiliza un dataset ya descargado
-python verifica_todos.py --root-fr2 <ruta>    # idem para fr2_xyz (nivel 14)
+python verifica_todos.py                        # el examen de TODOS los niveles
+python verifica_todos.py --root <ruta_TUM>      # reutiliza un dataset ya descargado
+python verifica_todos.py --root-fr2 <ruta>      # idem para fr2_xyz (nivel 14)
+python verifica_todos.py --root-fr1desk <ruta>  # idem para fr1_desk (nivel 15)
 ```
 
 Sobre los datasets: los niveles 00, 05 y 06 descargan cada uno su propia copia
-de TUM fr1_xyz (~450 MB), y el nivel 14 usa fr2_xyz (~2.1 GB). Es el precio de
-la independencia estricta. Si ya los tienes, todos los scripts aceptan
-`--root <carpeta>` y no descargan nada.
+de TUM fr1_xyz (~450 MB); el nivel 14 usa fr2_xyz (~2.1 GB) y el 15 usa
+fr1_desk (~330 MB). Es el precio de la independencia estricta. Si ya los
+tienes, todos los scripts aceptan `--root <carpeta>` y no descargan nada.
 
 ## Licencia
 

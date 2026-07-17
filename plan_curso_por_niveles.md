@@ -16,8 +16,13 @@
 > 14: la primera versión heredó el mapa local por RECENCIA del 13 y reprodujo
 > la lección 14 del padre (96k puntos duplicados, 35 cm que ningún BA bajaba);
 > la covisibilidad + "observar antes que crear" entraron al código enseñado de
-> ese nivel, con la historia medida en su README. Restan los niveles 15-20
-> (RGB-D, estéreo, aprendidas, tiempo real, 3DGS, ROS 2), ya diseñados en §4.
+> ese nivel, con la historia medida en su README. **Nivel 15 también
+> construido y verificado**: fr1_desk — la secuencia que derrotó al 14 — en
+> METROS: 2.3 cm RÍGIDO, escala 1.012 (criterio del padre: 2.8 cm/1.005,
+> cumplido); quedan 203 perdidos de blur (el padre con reloc: 0), documentados
+> como el hueco que cubren la reloc (ejercicio) y el nivel 17. Restan los
+> niveles 16-20 (estéreo, aprendidas, tiempo real, 3DGS, ROS 2), ya diseñados
+> en §4.
 >
 > El curso NO importa nada de este repo (verificado: 0 imports de `vslam` en
 > sus ~7 200 líneas). Se congela contra el tag v1.0.0: si el padre evoluciona,
