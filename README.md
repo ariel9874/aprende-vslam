@@ -89,7 +89,7 @@ GPU NVIDIA sólo en 17 y 19; Docker sólo en 19 y 20.
 ## De dónde sale este curso
 
 Es la descomposición pedagógica de
-[Visual-slam](https://github.com/arielvazquez/Visual-slam) (`vslam-edu` en
+[Visual-slam](https://github.com/ariel9874/Visual-slam) (`vslam-edu` en
 PyPI): un sistema de SLAM visual con arquitectura de producción, del mismo
 autor. **Aquel repo es el destino; éste es el camino.**
 
