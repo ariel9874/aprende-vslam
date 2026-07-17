@@ -48,8 +48,14 @@
 > ~1 min en GPU): rasterizador diferenciable de ~160 líneas (EWA + blending
 > por transmitancia), sobreajuste a 58.0 dB (criterio >30), gradiente
 > autograd == dif. finitas a 2.7e-9, y el bug del medio píxel de la lección
-> 40 reproducido como acto del examen (29 dB entre convenciones). Resta el
-> nivel 20 (ROS 2), ya diseñado en §4.
+> 40 reproducido como acto del examen (29 dB entre convenciones). **Nivel 20
+> (electiva, ROS 2) construido y verificado — y con él, EL CURSO COMPLETO
+> (00-20)**: la frontera núcleo↔ROS verificada SIN ROS (conjugación preserva
+> el grupo a 8.9e-16; el bug del lado único medido: 120° de actitud falsa;
+> cuaterniones xyzw por las 4 ramas; las identidades de REP-105), y la demo
+> viva entregada como 2 nodos rclpy + launch (bringup consumidores→productor)
+> + Dockerfile/compose con RViz por WSLg. Adaptación honesta: el smoke en
+> contenedor es opcional (--docker); la demo RViz es del alumno.
 >
 > El curso NO importa nada de este repo (verificado: 0 imports de `vslam` en
 > sus ~7 200 líneas). Se congela contra el tag v1.0.0: si el padre evoluciona,

@@ -1,0 +1,3 @@
+# Nivel 20. El examen (verificacion.py) solo necesita numpy.
+# La demo viva necesita Docker (el contenedor trae ROS 2 Jazzy + deps).
+numpy

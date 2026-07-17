@@ -7,18 +7,18 @@ Cada nivel es una carpeta **independiente y autoejecutable**, y termina con un
 examen (`verificacion.py`) que compara tu resultado contra un número esperado.
 Si el examen pasa, dominas el nivel.
 
-> **Estado**: EN CONSTRUCCIÓN. La ruta troncal **00 → 15 está completa y
-> verificada**, más las electivas 16 y 17 (18 niveles). Al terminar el nivel
-> 13 tienes un SLAM funcional sobre un corredor sintético; el 14 lo cruza a
-> DATOS REALES (TUM fr2_xyz entera: **1.4 cm**, 0 perdidos), el 15 lo pone en
-> METROS con un sensor RGB-D (fr1_desk: **2.3 cm métrico, escala 1.012**), el
-> 16 lo sube a un DRON con estéreo real (EuRoC V1_01: **9.0 cm, escala
-> 1.004**), el 17 mide cuándo el deep gana a lo clásico (el blur, atravesado
-> **13×** mejor — y la lección incómoda), el 18 enseña el método del tiempo
-> real (perfilar → gemela → test de equivalencia, a precisión de máquina) y
-> el 19 construye un rasterizador 3DGS diferenciable desde cero (58 dB de
-> sobreajuste; el bug del medio píxel, reproducido). Queda en camino la
-> electiva 20 (ROS 2).
+> **Estado**: **CURSO COMPLETO — los 21 niveles (00 → 20) construidos y
+> verificados.** Al terminar el nivel 13 tienes un SLAM funcional sobre un
+> corredor sintético; el 14 lo cruza a DATOS REALES (TUM fr2_xyz entera:
+> **1.4 cm**, 0 perdidos), el 15 lo pone en METROS con un sensor RGB-D
+> (fr1_desk: **2.3 cm métrico, escala 1.012**), el 16 lo sube a un DRON con
+> estéreo real (EuRoC V1_01: **9.0 cm, escala 1.004**), el 17 mide cuándo el
+> deep gana a lo clásico (el blur, atravesado **13×** mejor — y la lección
+> incómoda), el 18 enseña el método del tiempo real (perfilar → gemela →
+> test de equivalencia, a precisión de máquina), el 19 construye un
+> rasterizador 3DGS diferenciable desde cero (58 dB; el medio píxel,
+> reproducido) y el 20 saca el sistema al robot (ROS 2, TF de REP-105, RViz
+> vía Docker — con la conjugación de ejes verificada sin ROS).
 
 ## Empezar
 
@@ -96,8 +96,7 @@ GPU NVIDIA sólo en 17 y 19; Docker sólo en 19 y 20.
 | 17 | [features aprendidas](nivel_17_features_aprendidas/) | SuperPoint+LightGlue atraviesa el blur **13×** mejor — y ni así cruza fr1_desk (la cura fue el sensor: nivel 15) |
 | 18 | [ingeniería de tiempo real](nivel_18_ingenieria_de_tiempo_real/) | perfilar→gemela→equivalencia: BA **4.4×** a precisión de máquina (4e-16); GBA 2.3×, mismo ATE |
 | 19 | [mapa denso 3DGS](nivel_19_mapa_denso_3dgs/) | rasterizador diferenciable propio: sobreajuste **58 dB**, gradiente a 2.7e-9; el medio píxel, reproducido |
-
-En camino: 20 ROS 2
+| 20 | [ROS 2](nivel_20_ros2/) | la frontera verificada SIN ROS (conjugación 8.9e-16; el bug del lado único: **120°** medidos); demo RViz vía Docker |
 
 ## De dónde sale este curso
 

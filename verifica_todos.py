@@ -24,8 +24,10 @@ AQUI = Path(__file__).resolve().parent
 USAN_TUM = {"nivel_00_entorno_y_primeros_pixeles",
             "nivel_05_caracteristicas",
             "nivel_06_matching"}
-# Los niveles 14, 15 y 17 usan OTRAS secuencias: cada una con su flag.
-USAN_TUM_FR2 = {"nivel_14_datos_reales_tum"}
+# Los niveles 14-18 usan OTRAS secuencias: cada una con su flag. (Los
+# examenes de 16, 19 y 20 no necesitan dataset.)
+USAN_TUM_FR2 = {"nivel_14_datos_reales_tum",
+                "nivel_18_ingenieria_de_tiempo_real"}
 USAN_TUM_FR1DESK = {"nivel_15_rgbd_escala_metrica",
                     "nivel_17_features_aprendidas"}
 

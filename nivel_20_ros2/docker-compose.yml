@@ -1,0 +1,18 @@
+# Nivel 20. Antes:  python descarga_datos.py  (o ajusta el volumen a tu copia
+# de fr2_xyz, p. ej. la del nivel 14). En Windows, RViz sale por WSLg.
+services:
+  slam:
+    build: .
+    volumes:
+      - ./data:/data:ro
+      # WSLg (Windows 11): exporta la GUI de RViz sin configurar nada mas.
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /mnt/wslg:/mnt/wslg
+    environment:
+      - DISPLAY=:0
+      - WAYLAND_DISPLAY=wayland-0
+      - XDG_RUNTIME_DIR=/mnt/wslg/runtime-dir
+    command: bash -lc "ros2 launch /nodos/lanzar_slam.launch.py"
+
+  # En otra terminal:  docker compose exec slam bash -lc "rviz2"
+  # (anade Path=/slam/trayectoria, PointCloud2=/slam/mapa, TF; frame: map)
