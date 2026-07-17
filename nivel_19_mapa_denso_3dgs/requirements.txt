@@ -1,0 +1,8 @@
+# Nivel 19. El rasterizador es PyTorch puro:
+#
+#   pip install torch --index-url https://download.pytorch.org/whl/cu121
+#       (o `pip install torch` a secas para CPU: el examen tarda minutos
+#        en vez de ~1 min, pero pasa igual)
+#
+numpy
+matplotlib

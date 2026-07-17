@@ -36,8 +36,20 @@
 > en el código: MIN_INIT_POINTS (la vara floja que SuperPoint destapó), el
 > ratio de Lowe por-dtype (0.75 binario / 0.90 float — la reloc no disparaba
 > nunca con 0.75), la reloc portada del 16 y el puente frame-a-frame con
-> re-abastecimiento (el "track with motion model"). Restan los niveles 18-20
-> (tiempo real, 3DGS, ROS 2), ya diseñados en §4.
+> re-abastecimiento (el "track with motion model"). **Nivel 18 (electiva,
+> tiempo real) construido y verificado**: el método completo — perfil por
+> etapas, gemelas (BA vectorizado numpy: equivalencia a 4e-16 y mismo camino
+> LM, 4.4x; BoW tf·idf con voto de mayoría Hamming) y tests de equivalencia
+> como examen (8/8; los dos primeros actos sin dataset). Escalera medida en
+> fr2_xyz-600: tracking 1.31x, GBA 2.3x, ATE 0.76 = 0.76 cm (paridad).
+> Adaptación honesta: GTSAM no tiene rueda pip para Python 3.13 — GTSAM/iSAM2
+> y el C++ pybind11 quedan como ejercicios con las referencias del padre.
+> **Nivel 19 (electiva, 3DGS) construido y verificado** (4/4, sin dataset,
+> ~1 min en GPU): rasterizador diferenciable de ~160 líneas (EWA + blending
+> por transmitancia), sobreajuste a 58.0 dB (criterio >30), gradiente
+> autograd == dif. finitas a 2.7e-9, y el bug del medio píxel de la lección
+> 40 reproducido como acto del examen (29 dB entre convenciones). Resta el
+> nivel 20 (ROS 2), ya diseñado en §4.
 >
 > El curso NO importa nada de este repo (verificado: 0 imports de `vslam` en
 > sus ~7 200 líneas). Se congela contra el tag v1.0.0: si el padre evoluciona,
