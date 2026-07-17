@@ -27,8 +27,17 @@
 > (el coast 6-DoF diverge sin salida) y el filtro ANTI-DUPLICADOS del padre
 > (el arranque estático vagaba ~1 cm/frame y desplazó el ancla 1.5 m); su
 > examen corre SIN el dataset (rig sintético, como tests/test_stereo.py).
-> Restan los niveles 17-20 (aprendidas, tiempo real, 3DGS, ROS 2), ya
-> diseñados en §4.
+> **Nivel 17 (electiva, features aprendidas) construido y verificado**: el
+> experimento par-a-par mide dónde gana el deep (blur: 8 vs 109 E-inliers,
+> 13x) y el sistema completo mide la parte incómoda de la lección 29: en el
+> tracker didáctico fr1_desk no la cruza NINGÚN frontend (ORB 546 / SP 557
+> perdidos — el padre con su tracker completo: 560→140) — el episodio es
+> estructural y la cura fue el sensor (nivel 15: 2.3 cm). Construirlo dejó
+> en el código: MIN_INIT_POINTS (la vara floja que SuperPoint destapó), el
+> ratio de Lowe por-dtype (0.75 binario / 0.90 float — la reloc no disparaba
+> nunca con 0.75), la reloc portada del 16 y el puente frame-a-frame con
+> re-abastecimiento (el "track with motion model"). Restan los niveles 18-20
+> (tiempo real, 3DGS, ROS 2), ya diseñados en §4.
 >
 > El curso NO importa nada de este repo (verificado: 0 imports de `vslam` en
 > sus ~7 200 líneas). Se congela contra el tag v1.0.0: si el padre evoluciona,

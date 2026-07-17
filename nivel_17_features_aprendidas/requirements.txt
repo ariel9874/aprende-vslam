@@ -1,0 +1,11 @@
+# Nivel 17. Ademas de lo de siempre, el frontend APRENDIDO necesita:
+#
+#   pip install torch --index-url https://download.pytorch.org/whl/cu121
+#       (o `pip install torch` a secas para CPU: funciona, pero MUY lento)
+#   pip install git+https://github.com/cvg/LightGlue.git
+#       (trae superpoint + lightglue + kornia; pesos ~100 MB al primer uso)
+#
+# Los pesos de SuperPoint son solo-investigacion (los de LightGlue, Apache-2).
+numpy
+opencv-python
+matplotlib

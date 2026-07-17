@@ -8,13 +8,14 @@ examen (`verificacion.py`) que compara tu resultado contra un número esperado.
 Si el examen pasa, dominas el nivel.
 
 > **Estado**: EN CONSTRUCCIÓN. La ruta troncal **00 → 15 está completa y
-> verificada**, más la electiva 16 (17 niveles). Al terminar el nivel 13
-> tienes un SLAM funcional sobre un corredor sintético; el 14 lo cruza a
+> verificada**, más las electivas 16 y 17 (18 niveles). Al terminar el nivel
+> 13 tienes un SLAM funcional sobre un corredor sintético; el 14 lo cruza a
 > DATOS REALES (TUM fr2_xyz entera: **1.4 cm**, 0 perdidos), el 15 lo pone en
-> METROS con un sensor RGB-D (fr1_desk: **2.3 cm métrico, escala 1.012**) y
-> el 16 lo sube a un DRON con estéreo real (EuRoC V1_01: **9.0 cm, escala
-> 1.004**). Las electivas 17-20 (features aprendidas, tiempo real, mapa denso
-> 3DGS, ROS 2) están en camino.
+> METROS con un sensor RGB-D (fr1_desk: **2.3 cm métrico, escala 1.012**), el
+> 16 lo sube a un DRON con estéreo real (EuRoC V1_01: **9.0 cm, escala
+> 1.004**) y el 17 mide cuándo el deep gana a lo clásico (el blur, atravesado
+> **13×** mejor — y la lección incómoda). Las electivas 18-20 (tiempo real,
+> mapa denso 3DGS, ROS 2) están en camino.
 
 ## Empezar
 
@@ -89,9 +90,9 @@ GPU NVIDIA sólo en 17 y 19; Docker sólo en 19 y 20.
 | # | Nivel | Hito verificable |
 |---|---|---|
 | 16 | [estéreo (EuRoC)](nivel_16_estereo_euroc/) | dron V1_01: **9.0 cm, escala 1.004**; el examen no necesita el dataset |
+| 17 | [features aprendidas](nivel_17_features_aprendidas/) | SuperPoint+LightGlue atraviesa el blur **13×** mejor — y ni así cruza fr1_desk (la cura fue el sensor: nivel 15) |
 
-En camino: 17 features aprendidas · 18 ingeniería de tiempo real ·
-19 mapa denso 3DGS · 20 ROS 2
+En camino: 18 ingeniería de tiempo real · 19 mapa denso 3DGS · 20 ROS 2
 
 ## De dónde sale este curso
 

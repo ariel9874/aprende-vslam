@@ -24,9 +24,10 @@ AQUI = Path(__file__).resolve().parent
 USAN_TUM = {"nivel_00_entorno_y_primeros_pixeles",
             "nivel_05_caracteristicas",
             "nivel_06_matching"}
-# Los niveles 14 y 15 usan OTRAS secuencias: cada una con su propio flag.
+# Los niveles 14, 15 y 17 usan OTRAS secuencias: cada una con su flag.
 USAN_TUM_FR2 = {"nivel_14_datos_reales_tum"}
-USAN_TUM_FR1DESK = {"nivel_15_rgbd_escala_metrica"}
+USAN_TUM_FR1DESK = {"nivel_15_rgbd_escala_metrica",
+                    "nivel_17_features_aprendidas"}
 
 
 def main() -> int:
