@@ -20,9 +20,15 @@
 > construido y verificado**: fr1_desk — la secuencia que derrotó al 14 — en
 > METROS: 2.3 cm RÍGIDO, escala 1.012 (criterio del padre: 2.8 cm/1.005,
 > cumplido); quedan 203 perdidos de blur (el padre con reloc: 0), documentados
-> como el hueco que cubren la reloc (ejercicio) y el nivel 17. Restan los
-> niveles 16-20 (estéreo, aprendidas, tiempo real, 3DGS, ROS 2), ya diseñados
-> en §4.
+> como el hueco que cubren la reloc (ejercicio) y el nivel 17. **Nivel 16
+> (electiva, estéreo EuRoC) construido y verificado**: V1_01_easy 9.0 cm
+> RÍGIDO / escala 1.004 (padre: 6.9/1.002); el dron exigió DOS piezas nuevas
+> al código enseñado, medidas una a una (54 -> 37 -> 9 cm): la RELOCALIZACIÓN
+> (el coast 6-DoF diverge sin salida) y el filtro ANTI-DUPLICADOS del padre
+> (el arranque estático vagaba ~1 cm/frame y desplazó el ancla 1.5 m); su
+> examen corre SIN el dataset (rig sintético, como tests/test_stereo.py).
+> Restan los niveles 17-20 (aprendidas, tiempo real, 3DGS, ROS 2), ya
+> diseñados en §4.
 >
 > El curso NO importa nada de este repo (verificado: 0 imports de `vslam` en
 > sus ~7 200 líneas). Se congela contra el tag v1.0.0: si el padre evoluciona,

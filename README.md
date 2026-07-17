@@ -7,12 +7,14 @@ Cada nivel es una carpeta **independiente y autoejecutable**, y termina con un
 examen (`verificacion.py`) que compara tu resultado contra un número esperado.
 Si el examen pasa, dominas el nivel.
 
-> **Estado**: EN CONSTRUCCIÓN. La ruta **00 → 15 está completa y verificada**
-> (16 niveles). Al terminar el nivel 13 tienes un SLAM funcional sobre un
-> corredor sintético; el 14 lo cruza a DATOS REALES (TUM fr2_xyz entera:
-> **1.4 cm**, 0 perdidos) y el 15 lo pone en METROS con un sensor RGB-D
-> (fr1_desk: **2.3 cm métrico, escala 1.012**). Los niveles 16-20 (estéreo,
-> features aprendidas, tiempo real, mapa denso 3DGS, ROS 2) están en camino.
+> **Estado**: EN CONSTRUCCIÓN. La ruta troncal **00 → 15 está completa y
+> verificada**, más la electiva 16 (17 niveles). Al terminar el nivel 13
+> tienes un SLAM funcional sobre un corredor sintético; el 14 lo cruza a
+> DATOS REALES (TUM fr2_xyz entera: **1.4 cm**, 0 perdidos), el 15 lo pone en
+> METROS con un sensor RGB-D (fr1_desk: **2.3 cm métrico, escala 1.012**) y
+> el 16 lo sube a un DRON con estéreo real (EuRoC V1_01: **9.0 cm, escala
+> 1.004**). Las electivas 17-20 (features aprendidas, tiempo real, mapa denso
+> 3DGS, ROS 2) están en camino.
 
 ## Empezar
 
@@ -82,9 +84,13 @@ GPU NVIDIA sólo en 17 y 19; Docker sólo en 19 y 20.
 | 14 | [datos reales (TUM)](nivel_14_datos_reales_tum/) | fr2_xyz entera: **1.4 cm**, 0 perdidos; el mapa-espejismo, evitado |
 | 15 | [RGB-D y escala métrica](nivel_15_rgbd_escala_metrica/) | fr1_desk: **2.3 cm MÉTRICO**, escala 1.012 — la secuencia que derrotó al 14 |
 
-### Bloque D — Electivas (en camino)
+### Bloque D — Electivas
 
-16 estéreo (EuRoC) · 17 features aprendidas · 18 ingeniería de tiempo real ·
+| # | Nivel | Hito verificable |
+|---|---|---|
+| 16 | [estéreo (EuRoC)](nivel_16_estereo_euroc/) | dron V1_01: **9.0 cm, escala 1.004**; el examen no necesita el dataset |
+
+En camino: 17 features aprendidas · 18 ingeniería de tiempo real ·
 19 mapa denso 3DGS · 20 ROS 2
 
 ## De dónde sale este curso
