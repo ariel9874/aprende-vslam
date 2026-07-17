@@ -8,8 +8,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # --break-system-packages: la imagen es desechable; el venv seria ceremonia.
+# OpenCV fijado a 4.10: la imagen ROS trae numpy 1.26 empaquetado por DEBIAN
+# (pip no puede desinstalarlo: "RECORD file not found") y OpenCV 5 arrastra
+# numpy 2. La regla de todo contenedor sobre una base con paquetes de
+# sistema: NO pelear con el numpy del sistema — elegir dependencias que lo
+# acepten. (Nos paso construyendo este nivel; el error exacto queda aqui
+# para el siguiente que lo vea.)
 RUN pip3 install --no-cache-dir --break-system-packages \
-        "numpy<3" opencv-python-headless
+        "opencv-python-headless==4.10.0.84"
 
 COPY nodos/ /nodos/
 COPY conversiones.py /nodos/conversiones.py

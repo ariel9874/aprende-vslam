@@ -59,7 +59,10 @@ ejercicio 5.
 
 ## La demo viva (Docker; en Windows, RViz sale por WSLg)
 
-No hay ROS 2 nativo en Windows: **el contenedor es el entorno**.
+No hay ROS 2 nativo en Windows: **el contenedor es el entorno**. (Pipeline
+validado headless al construir el nivel: los nodos arrancan en orden y el
+SLAM cerró su primer bucle DENTRO del contenedor a los ~65 s, con el log de
+REP-105 anunciándolo.)
 
 ```bash
 python descarga_datos.py         # fr2_xyz en ./data (o copia la del nivel 14)
