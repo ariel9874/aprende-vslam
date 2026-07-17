@@ -8,9 +8,24 @@ saber DÓNDE, y probar que la versión rápida da LO MISMO.
 
 Antes de correr el driver, apunta dónde crees TÚ que se va el tiempo. El
 repo padre apostaba por cv2 (su docs/04); su perfil dijo: **BA 57% +
-matching guiado 37%, cv2 8%**. La intuición no se discute: se refuta con
-una tabla. El driver imprime la tuya (`perfil` por etapas, medido con
-`time.perf_counter` acumulado — el tracker del nivel 14 instrumentado).
+matching guiado 37%, cv2 8%**. El nuestro (fr2_xyz, 1000 frames, la tabla
+que imprime el driver):
+
+| etapa | % del tracking |
+|---|---|
+| matching guiado | **62.4%** |
+| BA local | **32.6%** |
+| frontend (ORB) | 1.1% |
+| PnP | 0.6% |
+| bucle: reconocimiento | **0.0%** |
+
+Los mismos dos puntos calientes que el padre (en otro orden — nuestro guiado
+es Python puro; el suyo ya era C++ cuando midió), y cv2 igual de inocente.
+Y una sorpresa honesta: el reconocimiento de lugar — lo que BoW acelera —
+perfila a **0.0%** con ~80 keyframes (la fuerza bruta acotada a 300
+descriptores ya era barata a esta escala). BoW es un seguro para cuando la
+base crece, no una ganancia HOY: *no optimices lo que el perfil no señala* —
+Amdahl no perdona ni a las gemelas bonitas.
 
 ## Paso 2: la gemela (sustituir SOLO el punto caliente)
 
