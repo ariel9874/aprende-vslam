@@ -8,7 +8,7 @@ examen (`verificacion.py`) que compara tu resultado contra un número esperado.
 Si el examen pasa, dominas el nivel.
 
 > **Estado**: **CURSO COMPLETO — los 21 niveles (00 → 20) construidos y
-> verificados.** Al terminar el nivel 13 tienes un SLAM funcional sobre un
+> verificados, más el bonus 21 (grafos de factores).** Al terminar el nivel 13 tienes un SLAM funcional sobre un
 > corredor sintético; el 14 lo cruza a DATOS REALES (TUM fr2_xyz entera:
 > **1.4 cm**, 0 perdidos), el 15 lo pone en METROS con un sensor RGB-D
 > (fr1_desk: **2.3 cm métrico, escala 1.012**), el 16 lo sube a un DRON con
@@ -97,6 +97,7 @@ GPU NVIDIA sólo en 17 y 19; Docker sólo en 19 y 20.
 | 18 | [ingeniería de tiempo real](nivel_18_ingenieria_de_tiempo_real/) | perfilar→gemela→equivalencia: BA **4.4×** a precisión de máquina (4e-16); GBA 2.3×, mismo ATE |
 | 19 | [mapa denso 3DGS](nivel_19_mapa_denso_3dgs/) | rasterizador diferenciable propio: sobreajuste **58 dB**, gradiente a 2.7e-9; el medio píxel, reproducido |
 | 20 | [ROS 2](nivel_20_ros2/) | la frontera verificada SIN ROS (conjugación 8.9e-16; el bug del lado único: **120°** medidos); demo RViz vía Docker |
+| 21 | [grafos de factores](nivel_21_grafos_de_factores/) · bonus | 4 backends desde cero, mismas medidas: completo **8.2** < EKF 9.4 < ventana 25.9 < poses 29 < cortada 59 cm; Schur exacto a 1e-11 |
 
 ## De dónde sale este curso
 

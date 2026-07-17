@@ -55,7 +55,13 @@
 > cuaterniones xyzw por las 4 ramas; las identidades de REP-105), y la demo
 > viva entregada como 2 nodos rclpy + launch (bringup consumidores→productor)
 > + Dockerfile/compose con RViz por WSLg. Adaptación honesta: el smoke en
-> contenedor es opcional (--docker); la demo RViz es del alumno.
+> contenedor es opcional (--docker); la demo RViz es del alumno. **Añadido
+> fuera del plan original (a petición): nivel 21 bonus, grafos de factores**
+> — cuatro backends desde cero (completo, grafo de poses, ventana con
+> marginalización de Schur, EKF-SLAM) sobre las MISMAS medidas de un mundo
+> SE(2) sintético; jerarquía medida (8.2 / 9.4 / 25.9 / 29 / 59 cm vs 56 de
+> odometría), marginalización verificada exacta (1e-11) y fill-in contado
+> (1.33x). Examen 10/10 sin dataset, en segundos.
 >
 > El curso NO importa nada de este repo (verificado: 0 imports de `vslam` en
 > sus ~7 200 líneas). Se congela contra el tag v1.0.0: si el padre evoluciona,

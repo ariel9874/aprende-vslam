@@ -1,0 +1,3 @@
+# Nivel 21 (bonus). Numpy puro; matplotlib solo para las graficas.
+numpy
+matplotlib
