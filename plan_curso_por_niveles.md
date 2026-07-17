@@ -7,12 +7,17 @@
 >
 > **ESTADO (julio 2026): EJECUTADO.** El repo hijo existe y vive en
 > `C:\Users\ariel\Documents\GitHub\aprende-vslam` (repo git propio, MIT, un
-> commit por nivel). **Niveles 00-13 construidos y verificados** (14/14 en
-> `verifica_todos.py`, desde cero, sin datos previos): de "una imagen es una
-> matriz" a un SLAM completo con BA y cierre de bucle (corredor: 18 KFs, 2
-> bucles, 0 perdidos, ATE 5.8 cm; sin BA colapsa a 148 cm). Restan los niveles
-> 14-20 (datos reales, RGB-D, estéreo, aprendidas, tiempo real, 3DGS, ROS 2),
-> ya diseñados en §4 de este documento.
+> commit por nivel). **Niveles 00-14 construidos y verificados**: de "una
+> imagen es una matriz" a un SLAM completo con BA y cierre de bucle (corredor:
+> ATE 5.8 cm; sin BA colapsa a 148 cm) corriendo sobre DATOS REALES (nivel 14,
+> fr2_xyz entera: 0 perdidos, 245 KFs, 22 bucles, **1.4 cm** final-KF tras el
+> GBA — dentro de la banda 0.4-1.5 del padre; fr1_desk documentado como límite
+> del envelope: 562/613 perdidos, vs 560 del padre). Nota de construcción del
+> 14: la primera versión heredó el mapa local por RECENCIA del 13 y reprodujo
+> la lección 14 del padre (96k puntos duplicados, 35 cm que ningún BA bajaba);
+> la covisibilidad + "observar antes que crear" entraron al código enseñado de
+> ese nivel, con la historia medida en su README. Restan los niveles 15-20
+> (RGB-D, estéreo, aprendidas, tiempo real, 3DGS, ROS 2), ya diseñados en §4.
 >
 > El curso NO importa nada de este repo (verificado: 0 imports de `vslam` en
 > sus ~7 200 líneas). Se congela contra el tag v1.0.0: si el padre evoluciona,

@@ -24,11 +24,14 @@ AQUI = Path(__file__).resolve().parent
 USAN_TUM = {"nivel_00_entorno_y_primeros_pixeles",
             "nivel_05_caracteristicas",
             "nivel_06_matching"}
+# El nivel 14 usa OTRA secuencia (fr2_xyz, ~2.1 GB): su propio flag.
+USAN_TUM_FR2 = {"nivel_14_datos_reales_tum"}
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", help="secuencia TUM fr1_xyz ya descargada")
+    parser.add_argument("--root-fr2", help="secuencia TUM fr2_xyz ya descargada")
     args = parser.parse_args()
 
     niveles = sorted(d for d in AQUI.iterdir()
@@ -41,6 +44,8 @@ def main() -> int:
         cmd = [sys.executable, "verificacion.py"]
         if args.root and d.name in USAN_TUM:
             cmd += ["--root", args.root]
+        if args.root_fr2 and d.name in USAN_TUM_FR2:
+            cmd += ["--root", args.root_fr2]
         t0 = time.perf_counter()
         r = subprocess.run(cmd, cwd=d, capture_output=True, text=True)
         dt = time.perf_counter() - t0
