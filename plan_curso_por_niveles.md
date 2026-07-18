@@ -61,7 +61,15 @@
 > marginalización de Schur, EKF-SLAM) sobre las MISMAS medidas de un mundo
 > SE(2) sintético; jerarquía medida (8.2 / 9.4 / 25.9 / 29 / 59 cm vs 56 de
 > odometría), marginalización verificada exacta (1e-11) y fill-in contado
-> (1.33x). Examen 10/10 sin dataset, en segundos.
+> (1.33x). Examen 10/10 sin dataset, en segundos. **Y el nivel 22 bonus, el
+> factor de IMU** (también a petición): preintegración 2D desde cero con
+> punto medio (reproduce 62 s de circuito a 0.02 cm; con Euler eran 20 cm —
+> lección medida) y la corrección de primer orden del sesgo de Forster
+> verificada (exacta en θ, 402x en δv); el mundo es un uniciclo con IMU a
+> 100 Hz + visión a 4 Hz y un APAGÓN visual de 5 s en plena curva: coast
+> 62.2 cm vs VIO 4.8 cm (12.9x) — la información que al nivel 17 le faltaba,
+> medida; el sesgo (0.03) lo descubre el grafo (0.0297) y paga justo dentro
+> del apagón. Examen 10/10 sin dataset, en segundos.
 >
 > El curso NO importa nada de este repo (verificado: 0 imports de `vslam` en
 > sus ~7 200 líneas). Se congela contra el tag v1.0.0: si el padre evoluciona,
