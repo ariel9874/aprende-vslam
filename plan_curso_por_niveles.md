@@ -69,7 +69,20 @@
 > 100 Hz + visión a 4 Hz y un APAGÓN visual de 5 s en plena curva: coast
 > 62.2 cm vs VIO 4.8 cm (12.9x) — la información que al nivel 17 le faltaba,
 > medida; el sesgo (0.03) lo descubre el grafo (0.0297) y paga justo dentro
-> del apagón. Examen 10/10 sin dataset, en segundos.
+> del apagón. Examen 10/10 sin dataset, en segundos. **Y el nivel 23 bonus,
+> el EKF desde cero** (también a petición): el filtro de Kalman explicado
+> DESPACIO en cuatro actos-script independientes — fusionar dos números (K
+> es una media ponderada; recursivo == batch a 1e-15), el KF lineal (el
+> carrito: velocidad estimada sin sensor 17x mejor que derivar; el filtro
+> == el grafo lineal a 1e-11 en estado Y covarianza), el EKF (localización
+> 2.0 cm vs 41 de dead reckoning; el bug de no envolver la innovación del
+> rumbo: 80 cm, 39x) y el error-state EKF sobre el MISMO mundo del 22
+> (nominal no lineal a 100 Hz + error corregido a 4 Hz): 7.2 cm online,
+> sesgo descubierto EN VIVO (0.028 a los 12 s; plano durante el apagón),
+> sin modelar el sesgo el filtro se envenena (184 cm — consistencia), la
+> novatada de la vuelta 1 (9.5 vs 3.5 cm) y el cierre filtro-vs-smoother:
+> el ESKF cruza el apagón 3.6x mejor que el coast y el smoother 3.6x mejor
+> que el ESKF (17.2 vs 4.8). Examen 14/14 sin dataset, en segundos.
 >
 > El curso NO importa nada de este repo (verificado: 0 imports de `vslam` en
 > sus ~7 200 líneas). Se congela contra el tag v1.0.0: si el padre evoluciona,
