@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "Si usas este curso, citalo como se indica abajo. / If you use this course, please cite it as below."
+title: "aprende-vslam: Visual SLAM desde cero, por niveles y verificado con numeros"
+type: software
+authors:
+  - family-names: "Vazquez Dominguez"
+    given-names: "Ariel Eliezer"
+    orcid: "https://orcid.org/0009-0001-4922-9100"
+license: MIT
+repository-code: "https://github.com/ariel9874/aprende-vslam"
+abstract: >-
+  Curso practico de Visual SLAM en espanol: 25 niveles autocontenidos que
+  van de "una imagen es una matriz" a un sistema de SLAM completo sobre
+  datos reales, mas niveles bonus de grafos de factores, preintegracion de
+  IMU, filtro de Kalman y las tripas de GTSAM. Cada nivel cierra con un
+  examen automatico que compara el resultado del estudiante contra numeros
+  medidos (202 checks en total).
+keywords:
+  - SLAM
+  - visual SLAM
+  - computer vision
+  - robotics
+  - education
+  - factor graphs
+  - spanish

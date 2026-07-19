@@ -1,0 +1,85 @@
+# Los examenes del curso, en cada push: la afirmacion central del repo
+# ("todo verificado") demostrada en maquinas limpias, Ubuntu y Windows.
+#
+# Corre los 18 niveles cuyo examen no necesita dataset (validados: ~2 min
+# en total). Los niveles con dataset (00, 05, 06, 14, 15, 17, 18) se
+# verifican localmente con verifica_todos.py --root; el acto 5 del nivel
+# 24 (GTSAM real) tiene su propio job en Docker.
+name: examenes
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  examenes:
+    name: examenes (${{ matrix.os }}, py${{ matrix.python }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ["3.11", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+          cache-dependency-path: "**/requirements.txt"
+      # el superset de los requirements de estos 18 niveles
+      - run: pip install numpy opencv-python matplotlib
+      - name: correr los examenes sin dataset
+        shell: bash
+        run: |
+          fallos=""
+          for nivel in \
+            nivel_01_el_sensor_de_imagen \
+            nivel_02_camara_pinhole \
+            nivel_03_poses_y_transformaciones \
+            nivel_04_distorsion_y_calibracion \
+            nivel_07_geometria_epipolar \
+            nivel_08_odometria_visual \
+            nivel_09_triangulacion \
+            nivel_10_pnp_y_mapa_persistente \
+            nivel_11_bundle_adjustment \
+            nivel_12_grafo_de_poses_y_cierre_de_bucle \
+            nivel_13_slam_completo \
+            nivel_16_estereo_euroc \
+            nivel_19_mapa_denso_3dgs \
+            nivel_20_ros2 \
+            nivel_21_grafos_de_factores \
+            nivel_22_factor_de_imu \
+            nivel_23_ekf_desde_cero \
+            nivel_24_gtsam_desde_cero
+          do
+            echo "::group::$nivel"
+            if (cd "$nivel" && python verificacion.py); then
+              echo "::endgroup::"
+            else
+              echo "::endgroup::"
+              echo "::error::FALLO el examen de $nivel"
+              fallos="$fallos $nivel"
+            fi
+          done
+          if [ -n "$fallos" ]; then
+            echo "Examenes fallidos:$fallos"
+            exit 1
+          fi
+          echo "18/18 examenes VERIFICADOS"
+
+  gtsam-docker:
+    name: acto 5 del nivel 24 (GTSAM real en contenedor)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: construir la imagen
+        run: docker build -t aprende-vslam-gtsam nivel_24_gtsam_desde_cero
+      - name: smoke — GTSAM da nuestro numero
+        run: |
+          docker run --rm aprende-vslam-gtsam | tee salida.txt
+          grep -q ACTO5_OK salida.txt

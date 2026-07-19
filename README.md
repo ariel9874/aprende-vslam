@@ -1,7 +1,16 @@
 # Aprende Visual SLAM — de cero a un sistema funcional
 
+[![examenes](https://github.com/ariel9874/aprende-vslam/actions/workflows/examenes.yml/badge.svg)](https://github.com/ariel9874/aprende-vslam/actions/workflows/examenes.yml)
+[![licencia: MIT](https://img.shields.io/badge/licencia-MIT-green.svg)](LICENSE)
+[![English](https://img.shields.io/badge/English-summary-blue.svg)](README_EN.md)
+
 Un curso práctico por niveles: **de "una imagen es una matriz de números"
 hasta un SLAM visual completo** con bundle adjustment y cierre de bucle.
+
+![Cuatro estimadores sobre las mismas medidas (nivel 21): las trayectorias, la matriz de información dispersa y el prior denso de marginalizar](docs/portada_grafos.png)
+
+*Cada nivel produce sus propias gráficas y cierra con un examen automático:
+202 checks en 25 niveles, corridos por CI en Ubuntu y Windows.*
 
 Cada nivel es una carpeta **independiente y autoejecutable**, y termina con un
 examen (`verificacion.py`) que compara tu resultado contra un número esperado.
@@ -114,6 +123,14 @@ Muchos de los números que vas a reproducir son mediciones reales de aquel
 sistema: su ATE, sus colapsos, sus lecciones aprendidas por las malas. Cuando
 un nivel dice *"el repo padre midió esto"*, es literal — y suele venir con la
 historia de lo que costó descubrirlo.
+
+## Cómo citar y contribuir
+
+Si este curso te sirve (clase, taller, autoestudio), cítalo: GitHub genera
+la cita desde [CITATION.cff](CITATION.cff) con el botón *Cite this
+repository*. El artículo del curso (JOSE) está en preparación en
+[paper/](paper/). ¿Quieres reportar algo o proponer un nivel/ejercicio?
+Lee [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Para quien mantiene el curso
 
