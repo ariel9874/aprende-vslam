@@ -1,0 +1,5 @@
+# Nivel 24 (bonus). Numpy puro; matplotlib solo para las graficas.
+# gtsam NO va aqui a proposito: no hay wheel para Windows/Python 3.13 —
+# el acto 5 corre en el contenedor (docker compose up --build).
+numpy
+matplotlib

@@ -9,7 +9,7 @@ Si el examen pasa, dominas el nivel.
 
 > **Estado**: **CURSO COMPLETO — los 21 niveles (00 → 20) construidos y
 > verificados, más los bonus 21 (grafos de factores), 22 (el factor de
-> IMU) y 23 (el EKF desde cero).** Al terminar el nivel 13 tienes un SLAM funcional sobre un
+> IMU), 23 (el EKF desde cero) y 24 (GTSAM desde cero).** Al terminar el nivel 13 tienes un SLAM funcional sobre un
 > corredor sintético; el 14 lo cruza a DATOS REALES (TUM fr2_xyz entera:
 > **1.4 cm**, 0 perdidos), el 15 lo pone en METROS con un sensor RGB-D
 > (fr1_desk: **2.3 cm métrico, escala 1.012**), el 16 lo sube a un DRON con
@@ -39,7 +39,7 @@ introductoria (multiplicar matrices). **Nada de visión por computadora**: eso
 lo construye el curso.
 
 **Hardware**: CPU sola hasta el nivel 16. Webcam opcional (niveles 01 y 04).
-GPU NVIDIA sólo en 17 y 19; Docker sólo en 19 y 20.
+GPU NVIDIA sólo en 17 y 19; Docker sólo en 19, 20 y 24 (en el 24, opcional).
 
 ## Las reglas del curso (la constitución)
 
@@ -101,6 +101,7 @@ GPU NVIDIA sólo en 17 y 19; Docker sólo en 19 y 20.
 | 21 | [grafos de factores](nivel_21_grafos_de_factores/) · bonus | 4 backends desde cero, mismas medidas: completo **8.2** < EKF 9.4 < ventana 25.9 < poses 29 < cortada 59 cm; Schur exacto a 1e-11 |
 | 22 | [el factor de IMU](nivel_22_factor_de_imu/) · bonus | preintegración desde cero: apagón visual en curva **62.2 → 4.8 cm** (coast vs VIO, 12.9×); el sesgo, descubierto (0.0297/0.03); Forster verificado (402×) |
 | 23 | [el EKF desde cero](nivel_23_ekf_desde_cero/) · bonus | de la media ponderada al error-state en 4 actos: KF == grafo lineal (1e-11); el bug de ±π (**39×** peor); ESKF en el mundo del 22: **7.2 cm** online, sesgo en vivo — y el smoother gana 3.6× justo donde debe |
+| 24 | [GTSAM desde cero](nivel_24_gtsam_desde_cero/) · bonus | la máquina del 21: eliminar == batch (7e-15) y == Schur (4e-16); fill-in **11×** entre órdenes; el bucle toca 99/104 cliques del árbol; iSAM de juguete == batch a 0.12 cm, speedup **12.9×** (crece a 18×), pico de bucle 12×; GTSAM real vía Docker empata en mm |
 
 ## De dónde sale este curso
 

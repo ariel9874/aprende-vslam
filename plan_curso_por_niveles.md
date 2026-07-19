@@ -82,7 +82,22 @@
 > sin modelar el sesgo el filtro se envenena (184 cm — consistencia), la
 > novatada de la vuelta 1 (9.5 vs 3.5 cm) y el cierre filtro-vs-smoother:
 > el ESKF cruza el apagón 3.6x mejor que el coast y el smoother 3.6x mejor
-> que el ESKF (17.2 vs 4.8). Examen 14/14 sin dataset, en segundos.
+> que el ESKF (17.2 vs 4.8). Examen 14/14 sin dataset, en segundos. **Y el
+> nivel 24 bonus, GTSAM desde cero** (también a petición): la MÁQUINA que el
+> 21 no contó — eliminación de variables (reproduce el batch del 21 a 7e-15;
+> el factor al separador == Schur a 4e-16), el orden y su fill-in (min-degree
+> desde cero: 5 091 no-ceros vs 46 803 del temporal y 56 345 del peor, 11.1x;
+> los cuatro órdenes, misma solución a 8e-15), el árbol de Bayes (una
+> odometría nueva toca 1 clique de 104; el bucle, 99 — y min-degree lo baja
+> a 9 de 103) y un iSAM de juguete con factores cacheados, umbral de
+> re-linealización y reorden al vuelo: igual que el batch por paso a 0.12 cm,
+> speedup 12.9x (18x con 3 vueltas), pico del cierre de bucle 12x la mediana,
+> y la trilogía 21/23/24 cerrada en una tabla (online empatan ~9.4-10 cm; la
+> diferencia es lo que ADEMÁS te llevas). Acto 5 con GTSAM real en Docker
+> (python:3.11-slim + wheel pip Linux, numpy<2 por el ABI; la nota del nivel
+> 18 sobre la wheel de Windows sigue vigente, re-verificada): LM 8.21 cm vs
+> nuestro 8.24 — 0.4 mm; y el ISAM2 real online (10.01 cm) casi calca al
+> juguete (9.94). Examen 13/13 sin dataset en segundos; 15/15 con --docker.
 >
 > El curso NO importa nada de este repo (verificado: 0 imports de `vslam` en
 > sus ~7 200 líneas). Se congela contra el tag v1.0.0: si el padre evoluciona,

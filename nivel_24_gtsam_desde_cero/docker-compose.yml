@@ -1,0 +1,8 @@
+# Nivel 24, acto 5.  docker compose up --build
+# El mundo es sintetico: no hay datasets que montar — el contenedor corre
+# con_gtsam_real.py y imprime la tabla nuestro-vs-GTSAM.
+services:
+  gtsam:
+    build: .
+    image: aprende-vslam-gtsam
+    command: python con_gtsam_real.py
