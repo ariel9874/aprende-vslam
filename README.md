@@ -10,7 +10,8 @@ hasta un SLAM visual completo** con bundle adjustment y cierre de bucle.
 ![Cuatro estimadores sobre las mismas medidas (nivel 21): las trayectorias, la matriz de información dispersa y el prior denso de marginalizar](docs/portada_grafos.png)
 
 *Cada nivel produce sus propias gráficas y cierra con un examen automático:
-202 checks en 25 niveles, corridos por CI en Ubuntu y Windows.*
+202 checks en 25 niveles; el CI corre los exámenes sin dataset en Ubuntu y
+Windows.*
 
 Cada nivel es una carpeta **independiente y autoejecutable**, y termina con un
 examen (`verificacion.py`) que compara tu resultado contra un número esperado.

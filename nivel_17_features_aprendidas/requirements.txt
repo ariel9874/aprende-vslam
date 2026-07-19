@@ -1,4 +1,4 @@
-# Nivel 17. Ademas de lo de siempre, el frontend APRENDIDO necesita:
+﻿# Nivel 17. Ademas de lo de siempre, el frontend APRENDIDO necesita:
 #
 #   pip install torch --index-url https://download.pytorch.org/whl/cu121
 #       (o `pip install torch` a secas para CPU: funciona, pero MUY lento)
@@ -7,5 +7,7 @@
 #
 # Los pesos de SuperPoint son solo-investigacion (los de LightGlue, Apache-2).
 numpy
-opencv-python
+# <5: OpenCV 5 cambia stereoRectify y el comportamiento de PnP; el curso
+# esta calibrado y verificado contra 4.x (medido, 2026-07).
+opencv-python<5
 matplotlib

@@ -12,7 +12,7 @@ authors:
     orcid: 0009-0001-4922-9100
     affiliation: 1
 affiliations:
-  - name: Independent Researcher, Mexico  # TODO(Ariel) - confirmar afiliacion
+  - name: Independent Researcher, Mexico 
     index: 1
 date: 18 July 2026
 bibliography: paper.bib
@@ -106,11 +106,14 @@ whose 12.9× speedup over per-step batch grows with trajectory length.
 
 # Quality control
 
-Continuous integration runs the dataset-free exams (17 levels) on Ubuntu
-and Windows on every push; the dataset levels are verified locally against
-TUM and EuRoC sequences, and a maintainer script (`verifica_todos.py`) runs
-all 25 exams end to end. The GTSAM container smoke test is exercised with
-an optional exam flag (`--docker`).
+Continuous integration runs the dataset-free exams on Ubuntu and Windows on
+every push (two exams whose expected numbers are calibrated against
+OpenCV's Windows backend run on Windows CI only — an OpenCV
+platform-sensitivity the course documents rather than hides); the dataset
+levels are verified locally against TUM and EuRoC sequences, and a
+maintainer script (`verifica_todos.py`) runs all 25 exams end to end. The
+GTSAM container smoke test is exercised with an optional exam flag
+(`--docker`).
 
 # Acknowledgements
 

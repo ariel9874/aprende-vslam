@@ -66,9 +66,12 @@ python verifica_todos.py          # run every level's exam (accepts --root
                                   # flags to reuse downloaded datasets)
 ```
 
-The dataset-free exams (17+ levels) run in seconds-to-minutes on a clean
-machine and are exercised by CI on Ubuntu and Windows. Levels 00/05/06 and
-14/15/17/18 additionally verify against TUM/EuRoC sequences.
+The dataset-free exams run in seconds-to-minutes on a clean machine and are
+exercised by CI on Ubuntu and Windows (15 levels on Linux, 17 on Windows:
+two exams are calibrated against OpenCV's Windows backend — same version,
+different trajectory on Linux — and level 19 needs PyTorch, so it runs
+locally). Levels 00/05/06 and 14/15/17/18 additionally verify against
+TUM/EuRoC sequences.
 
 ## License and citation
 
