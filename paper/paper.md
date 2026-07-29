@@ -242,16 +242,31 @@ For instructors, the independence rule makes adoption granular:
 
 The course is the pedagogical decomposition of a working parent system —
 `vslam-edu` on PyPI [@vazquez2026] — built first, by the same author.
-*That repository is the destination; this one is the path.* The
-decomposition is why the milestones have provenance: many are the parent
-system's real measurements, including its failures. The sequence that
-defeated feature-based RGB tracking (`fr1_desk`) motivates the RGB-D
-level; the 13× blur robustness of learned features — and why it still was
-not enough — motivates the sensor lesson; the collapse without bundle
-adjustment is the parent system's own ablation, reproduced by every
-student who takes level 13. When a level says *"the parent repo measured
-this"*, it is literal, and it usually comes with the story of what it
-cost to discover.
+*That repository is the destination; this one is the path.*
+
+What the parent system supplied is the curriculum, not the code. It
+decided which experiments are worth a level, which failure modes deserve
+to be reproduced on purpose, and which ablations are decisive: the
+sequence that defeated feature-based RGB tracking (`fr1_desk`) is why
+there is an RGB-D level; the 13× blur robustness of learned features — and
+why it still was not enough — is why the sensor lesson comes after it; the
+collapse without bundle adjustment is the parent's own ablation, now
+reproduced by every student who takes level 13. Each level was then
+re-implemented from scratch under the course's constraints — flat scripts,
+zero cross-level imports, and only the concepts introduced up to that
+point — and re-measured on that new implementation. This is why the
+course's numbers track the parent's without being identical: the parent
+system reports 1.5 cm on TUM `fr2_xyz` and 6.9 cm on EuRoC `V1_01`, where
+the course's deliberately simpler pipelines measure 1.4 cm and 9.0 cm. The
+inheritance is the lesson, not the digit: when a level says *"the parent
+repo measured this"*, it names an experiment that was actually run, and it
+usually comes with the story of what it cost to discover.
+
+The course's own design is not inherited. The six rules, the four-block
+sequence, the decision of what each level must prove, and the split
+between exact checks and invariants were made for teaching, and they are
+what the 202 expected values encode. Both repositories are public, with
+their full commit history.
 
 # Quality control
 
@@ -262,6 +277,31 @@ platform-sensitivity the course documents rather than hides); the dataset
 levels are verified locally against TUM and EuRoC sequences, and
 `verifica_todos.py` runs all 25 exams end to end. The GTSAM container
 smoke test is exercised with an optional exam flag (`--docker`).
+
+# AI usage disclosure
+
+This project was developed with substantial generative-AI assistance, and
+that use is on the record rather than reconstructed here: the tool was
+Claude Code (Anthropic), with the models Claude Opus 4.8, Claude Fable 5
+and Claude Opus 5, and the repository's commit history names the model used
+in a `Co-authored-by` trailer on essentially every commit, including the
+ones that wrote this paper. The assistance covered code generation and
+refactoring across the levels' scripts and exams, drafting of the
+Spanish-language readmes and exercises, and drafting and copy-editing of
+this manuscript.
+
+The problem framing and the design decisions are the author's: the parent
+system was built first and set the curriculum (see "Story of the project"),
+and the level sequence, the six rules that constrain every level, the
+choice of what each level must prove, and the exact-check versus invariant
+split were decided for teaching. The 202 expected values are not model
+output — each one is a number produced by running the code, and continuous
+integration re-runs the dataset-free exams on machines the author does not
+control, so a plausible-looking value that was never measured does not
+survive the exam that cites it. The author reviewed, edited and validated
+all AI-assisted output and takes full responsibility for the accuracy,
+originality and licensing of the submitted material. Generative AI was not
+used for correspondence with editors or reviewers.
 
 # Acknowledgements
 

@@ -6,7 +6,9 @@ authors:
   - family-names: "Vazquez Dominguez"
     given-names: "Ariel Eliezer"
     orcid: "https://orcid.org/0009-0001-4922-9100"
-license: MIT
+license:
+  - MIT
+  - CC-BY-4.0
 repository-code: "https://github.com/ariel9874/aprende-vslam"
 abstract: >-
   Curso practico de Visual SLAM en espanol: 25 niveles autocontenidos que

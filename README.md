@@ -1,7 +1,8 @@
 # Aprende Visual SLAM — de cero a un sistema funcional
 
 [![examenes](https://github.com/ariel9874/aprende-vslam/actions/workflows/examenes.yml/badge.svg)](https://github.com/ariel9874/aprende-vslam/actions/workflows/examenes.yml)
-[![licencia: MIT](https://img.shields.io/badge/licencia-MIT-green.svg)](LICENSE)
+[![código: MIT](https://img.shields.io/badge/c%C3%B3digo-MIT-green.svg)](LICENSE)
+[![contenido: CC BY 4.0](https://img.shields.io/badge/contenido-CC%20BY%204.0-lightgrey.svg)](LICENSE-CC-BY-4.0.txt)
 [![English](https://img.shields.io/badge/English-summary-blue.svg)](README_EN.md)
 
 Un curso práctico por niveles: **de "una imagen es una matriz de números"
@@ -149,4 +150,11 @@ tienes, todos los scripts aceptan `--root <carpeta>` y no descargan nada.
 
 ## Licencia
 
-MIT.
+Doble licencia, como corresponde a material educativo abierto:
+
+- **El código** (`.py`, workflows de CI, `requirements.txt`):
+  [MIT](LICENSE).
+- **El contenido didáctico** (READMEs, `EJERCICIOS.md`, figuras y tablas):
+  [CC BY 4.0](LICENSE-CC-BY-4.0.txt) — úsalo, tradúcelo, adáptalo y dalo en
+  clase; lo único que pide es que cites la fuente
+  ([CITATION.cff](CITATION.cff)).

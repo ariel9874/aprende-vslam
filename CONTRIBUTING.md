@@ -60,6 +60,13 @@ nivel entra: **¿qué número medible aprende el alumno a reproducir?**
 Los ejercicios nuevos para niveles existentes son la contribución más fácil
 y más valiosa: mandalos directo como PR a `EJERCICIOS.md`.
 
+## Licencia de lo que contribuyes
+
+El repo tiene doble licencia: [MIT](LICENSE) para el código y
+[CC BY 4.0](LICENSE-CC-BY-4.0.txt) para el contenido didáctico (READMEs,
+`EJERCICIOS.md`, figuras). Al mandar un PR aceptas que tu aportación se
+publique bajo la que le corresponda.
+
 ## Código de conducta
 
 Este proyecto se rige por el [Código de Conducta](CODE_OF_CONDUCT.md)
@@ -77,4 +84,6 @@ claim is backed by a measured number in the level's `verificacion.py` exam
 Windows-proof (ASCII prints, `pathlib`). New levels start as an issue; new
 exercises for existing levels can go straight to a PR. The question that
 decides whether a change is accepted: *does it teach better, and is the
-number still measured?*
+number still measured?* The repository is dual-licensed — code under
+[MIT](LICENSE), course content under [CC BY 4.0](LICENSE-CC-BY-4.0.txt) —
+and contributions are published under whichever applies.

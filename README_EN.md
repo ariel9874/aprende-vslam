@@ -75,4 +75,8 @@ TUM/EuRoC sequences.
 
 ## License and citation
 
-MIT. To cite, see [CITATION.cff](CITATION.cff).
+Dual-licensed: the code (`.py` files, CI workflows, `requirements.txt`)
+under [MIT](LICENSE), and the course content (readmes, exercises, figures
+and tables) under [CC BY 4.0](LICENSE-CC-BY-4.0.txt) — reuse it, translate
+it, adapt it and teach with it; just give credit. To cite, see
+[CITATION.cff](CITATION.cff).
